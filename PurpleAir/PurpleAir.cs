@@ -8,7 +8,7 @@ namespace PurpleAir
 {
     class PurpleAir
     {
-        //based on JSON2CSharp.com generated class (not QuickType)
+        //based on JSON2CSharp.com generated class
         public class Result
         {
             public int ID { get; set; }
