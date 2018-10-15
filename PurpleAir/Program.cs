@@ -1,4 +1,5 @@
-﻿using System;
+﻿//10-15-2018 Updated class to support change from integer map version number to double.  Also, repaired header writing to monthly log file and added humidity readings.
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -135,7 +136,7 @@ namespace PurpleAir
                 //if the file doesn't exist for the month of the data, create a new one and create the field header
                 if (!File.Exists(logfile))
                 {
-                    StreamWriter file2 = new StreamWriter(datapath + "AQI-History.txt");
+                    StreamWriter file2 = new StreamWriter(logfile); //10-15-2018 - changed to "logfile" (was writing to old generic log file name)
                     file2.WriteLine("\"city\",\"time\",\"timezone\",\"aqi\",\"pm25\",\"temp\",\"humidity\",\"pressure\",\"latitude\",\"longitude\",\"PurpleAirID\"");
                     file2.Close();
                     file2.Dispose();
@@ -144,7 +145,7 @@ namespace PurpleAir
                 //at this point, the file already exists, so just append the new data.
                 using (StreamWriter history = File.AppendText(logfile))
                 {
-                    history.WriteLine("\"" + station + "\",\"" + lastseen.ToString("yyyy-MM-dd HH:mm:ss") + "\"," + tz.ToString() + "," + AQI.ToString() + "," + PM2_5Value.ToString() + "," + pas.results[0].temp_f.ToString() + "," + pas.results[0].pressure.ToString() + "," + pas.results[0].Lat.ToString() + "," + pas.results[0].Lon.ToString() + ",\"" + pas.results[0].ID.ToString() + "\"");
+                    history.WriteLine("\"" + station + "\",\"" + lastseen.ToString("yyyy-MM-dd HH:mm:ss") + "\"," + tz.ToString() + "," + AQI.ToString() + "," + PM2_5Value.ToString() + "," + pas.results[0].temp_f.ToString() + "," + pas.results[0].humidity.ToString() + "," + pas.results[0].pressure.ToString() + "," + pas.results[0].Lat.ToString() + "," + pas.results[0].Lon.ToString() + ",\"" + pas.results[0].ID.ToString() + "\""); //10-15-2018 - Added humidity.  "humidity" column heading was present above, but not in data written to file
                     history.Close();
                     history.Dispose();
                 }

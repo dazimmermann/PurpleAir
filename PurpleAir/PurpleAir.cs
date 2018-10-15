@@ -45,7 +45,7 @@ namespace PurpleAir
 
         public class PAStation  //renamed RootObject to something more appropriate
         {
-            public int mapVersion { get; set; }
+            public double mapVersion { get; set; } //10-15-2018 - fixed json parse error (map version changed from int to double)
             public int baseVersion { get; set; }
             public string mapVersionString { get; set; }
             public List<Result> results { get; set; }
